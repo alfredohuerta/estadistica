@@ -1,0 +1,46 @@
+---
+title: 'Actividad 2 de la clase: Lectura de una base de datos'
+author: "Erick Alfredo Garcia Huerta - A01708119"
+date: "`r Sys.Date()`"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Problema 1
+
+```{r}
+x = c(7000, 25000, 60000, 100000)
+f = c(50, 35, 16, 1)
+
+# Usando la media ponderada:
+media = sum(x*f / sum(f))
+cat("Media = ", media)
+
+moda = 7000
+cat("\nModa = ", moda)
+
+cat("\nMediana = ", 25000)
+
+cat("\nRango medio = ", (100000 + 7000) / 2)
+```
+
+# Leyendo una base de datos y su resumen de medidas
+
+```{r}
+datos = read.csv("energiafosil_PIB.csv")
+str(datos)
+```
+
+Se trata de una variable categórica (entidad) y tre variables numéricas
+
+# Medidas resumen
+
+```{r}
+summary(datos)
+cat("Desviaciones estándar: \n")
+apply(datos[-1], 2, sd)
+```
+

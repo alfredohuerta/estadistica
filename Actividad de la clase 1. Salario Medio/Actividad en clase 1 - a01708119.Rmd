@@ -1,0 +1,24 @@
+---
+title: "Actividad en clase 1"
+author: "Erick Alfredo Garcia Huerta - A01708119"
+date: "`r Sys.Date()`"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Mi primera gráfica
+
+```{r}
+boxplot(iris, col = rainbow(5), main = "datos de iris", horizontal = TRUE)
+```
+
+# El problema del promedio
+
+```{r}
+x = c(rep(7000, 50), rep(25000, 35), rep(60000, 6), 100000)
+mean(x)
+```
+
