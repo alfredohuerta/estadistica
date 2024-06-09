@@ -1,0 +1,68 @@
+---
+title: "Actividad en clase 5 - A1708119"
+author: "Erick Alfredo Garcia Huerta - A01708119"
+date: "`r Sys.Date()`"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## SObre el teorema de Bayes
+Se trata de una condicional sobre una probabilidad total.
+
+```{r}
+
+F1 <- 0.25
+F2 <- 0.60
+F3 <- 0.15
+
+M_dado_F1 <- 0.01
+M_dado_F2 <- 0.05
+M_dado_F3 <- 0.02
+
+M <- (F1 * M_dado_F1) + (F2 * M_dado_F2) + (F3 * M_dado_F3)
+
+M # Probabilidad total
+
+cat("La probabilidad total de estar mal etiquetados es: ", M)
+
+```
+
+```{r}
+cat("P(F1 | M ) = ", F1 * M_dado_F1 / M)
+```
+
+Del 100% de los zapatos mal etiquetados, el 7% proviede de la fábrica 1.
+
+ó   
+
+
+De cada 100 pares de zapatos mal etiquetados se espera (promedio) que 7 vengan de la fábrica 1.
+
+## El problema del basquetbolista
+
+```{r}
+p <- 0.4 # probabilidad de lanzar una vez la pelota y fallar
+q <- 1 - p
+n <- 20
+# p(va al torneo) = p(falla 6 o menos) = p(x = 0) + p(x = 1) +...+p(x=6)
+# por ejemplo, (20c0) * 0.4^0 * 0.6^20 + ... 
+
+cat("P(vaya al torneo) = ", sum(dbinom(0:6, 20, 0.4))) #dbinom es la probabilidad exacta con N y P || dbinom(x = x, n, p)
+```
+
+COn esto podemos concluir que la regla del entrenador es injusta, porque le pide un número de encestes más allá de lo esperado
+
+## Gráfica de la binomial
+
+```{r}
+x <- 0:20
+y <- dbinom(x, n, p)
+
+plot(x, y, main = "Distribución binomial con N = 20, P = 0.4", xlab= "Numero de fallos", ylab = "Probabilidad exacta", pch = 19, col = rainbow(21))
+abline(v= 6, lty = 5, col = "blue") # treshold para el fallo
+text(2, 0.05, "Va al torneo")
+```
+

@@ -1,0 +1,98 @@
+---
+title: "Actividad de la clase 3 - A01708119"
+author: "Erick Alfredo Garcia Huerta - A01708119"
+date: "`r Sys.Date()`"
+output:
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Los datos
+
+```{r}
+M <- read.csv("energiafosil_PIB.csv")
+length(table(M$entidad))
+
+names(M)
+```
+ Se observa que hay 161 países en la variable entidad.
+
+DOs filtros M1 la base de datos numéricos y M2 que tiene la base de datos de países
+ 
+Filtro de 5 países:
+```{r}
+#[condiciones filas, condiciones columnas]
+M2 <- M[M$entidad == 'Mexico' | 
+       M$entidad == 'Spain' | 
+       M$entidad == 'Argentina' | 
+       M$entidad == 'Chile' | 
+       M$entidad == 'Costa Rica', ] 
+table(M2$entidad)
+```
+
+Ahora haremos un filtro con M2 pero sólo variables numéricas
+
+```{r}
+# M1 es de sólo variables numéricas
+M1 <- M[-1] # Quita la primera columna, para poner varias columnas, se hace un vecot de números negativos
+head(M1)
+```
+
+# Análisis de las variables categóricas de la base de datos M2 (5 países)
+
+```{r}
+tabla <- prop.table(table(M2$entidad))
+```
+
+Se observa que los datos se distribyuen uniformemente en los 5 países (20%)
+
+```{r}
+par(mfrow = c(1, 2)) #Hace una matríz de gráficos de 1 fila y 2 columnas
+pie(tabla)
+par(cex = .7)
+title("Análisis de las variables categóricas (5 países)")
+barplot(tabla, col = rainbow(5), las = 2)
+```
+## Análisis de las variables numéricas
+
+Tabla de medidas resumen
+
+```{r}
+summary(M1)
+cat("Las desviaciones estándar son: \n")
+apply(M1, 2, sd)
+
+cv = function(x) {
+  sd(x) / mean(x)
+}
+cat("Los coeficientes de variación son: \n")
+apply(M1, 2, cv)
+```
+
+## Matriz de gráficos histogramas
+
+```{r}
+par(mfrow = c(1, 3))
+hist(M1$electrd_fosiles, main = "Fósiles", col = rainbow(10))
+hist(M1$PIB_per_cap, main = "PIB", col = terrain.colors(10))
+hist(M1$emisiones_CO2, main = "CO2", col = cm.colors(10))
+```
+
+# DIagrama de caja y bigote de M1
+```{r}
+boxplot(scale(M1), horizontal = TRUE, col = 'red') # scale escalar los datos (estadndarizar (x - media / desviación estandar), sólo usar cuando las escalas originales son muy diferentes)
+```
+## Matriz de graficos de disperción de las variables numéricas
+```{r}
+plot(M1, pch = 20, col = 'Orange')
+```
+
+## Matriz de correlación
+```{r}
+cor(M1)
+```
+

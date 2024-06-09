@@ -1,0 +1,58 @@
+---
+title: "Actividad en clase 7 - A01708119"
+author: "Erick Alfredo Garcia Huerta - A01708119"
+date: "`r Sys.Date()`"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# EL problema de la súper carretera
+
+## Hipótesis
+
+H0: Media_pobl = 42\
+H1: Media_pobl \< 42\
+$\alpha$ = 0.01
+
+$H_0: \mu = 42$\
+$H_1: \mu < 42$\
+$\alpha = 0.01$
+
+## Regla de decisión
+
+El modelo a usar: z porque $\sigma$ es desconocida, pero n \> 30\
+**Regla calor p**: Si valor p \< $\alpha$ = 0.01 se rechaza H0\
+**Regla clásica con z**
+
+```{r}
+vf = qnorm(0.01) # toda el alfa se va a la izquierda porque H1: <
+
+cat("El valor frontera es: ", vf)
+cat("\nRegla si z* <", vf, " se rechaza H0")
+```
+
+## Estadístico de prueba Z\* (Zp)
+
+```{r}
+media_muestra = 39.1
+media_pob = 42
+desv = 5.2 # desviación estandar de la muestra
+n = 35
+zp = (media_muestra - media_pob) / (desv/sqrt(n)) # se usa s en lugar de sigma porque no se conoce sigma y n es grande
+zp
+```
+
+## Conclusión
+
+Como Z\* es -3.29 \< vf= -2.32, entonces Z\* está en zona extrema(de rechazo). Por lo tanto, se rechaza H0
+
+# Valor P
+
+```{r}
+cat("El valor P = ", pnorm(zp))
+```
+
+Como valor P = 0.0004 \< $\alpha$ = 0.01, se rechaza H0

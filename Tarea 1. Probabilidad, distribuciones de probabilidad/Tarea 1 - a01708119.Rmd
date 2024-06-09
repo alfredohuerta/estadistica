@@ -1,0 +1,237 @@
+---
+title: "Tarea 1 - a01708119"
+author: "Erick Alfredo Garcia Huerta - A01708119"
+date: "`r Sys.Date()`"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problema 1
+Sean dos eventos A y B, donde P(A) = 0.20, P(B) = 0.43 y P(A intersección B) = 0.06. calcula las siguientes probabilidades y escríbelas en los espacios en blanco, redondeando a 4 decimales.
+
+a) P(de que ocurra A, cuando ya ocurrió B)
+b) P(de que ocurra B, si ya ocurrió A)
+c) P(de que ocurra A, si B no ocurrió)
+d) P(de que no ocurra A, si B ya ocurrió)
+e) P(de que no ocurra A, si B no ocurrió)
+
+Sugerencia. a) Observe que es una probabilidad condicional P(A|B),  b) Le piden hallar P(B|A) , c) P(A|no B) , etc.
+```{r}
+P_A <- 0.20  
+P_B <- 0.43  
+P_A_inter_B <- 0.06 
+
+P_A_dado_B <- P_A_inter_B / P_B
+round(P_A_dado_B, 4)
+
+P_B_dado_A <- P_A_inter_B / P_A
+round(P_B_dado_A, 4)
+
+P_no_B <- 1 - P_B
+P_A_inter_no_B <- P_A - P_A_inter_B 
+P_A_dado_no_B <- P_A_inter_no_B / P_no_B
+round(P_A_dado_no_B, 4)
+
+P_no_A_dado_B <- 1 - P_A_dado_B
+round(P_no_A_dado_B, 4)
+
+P_no_A <- 1 - P_A
+P_no_A_inter_no_B <- P_no_A - P_A_inter_no_B
+P_no_A_dado_no_B <- P_no_A_inter_no_B / P_no_B
+round(P_no_A_dado_no_B, 4)
+
+```
+## Problema 2
+La tabla de contingencia contiene un grupo de personas que fueron entrevistadas a la salida de un restaurante. Si elegimos a una de estas personas al azar, calcula la probabilidad de que:
+a) sea mujer si se sabe que fuma
+b) sea mujer y fume
+c) no fume, si se sabe que es mujer
+d) sea mujer o no fume
+Escribe los resultados, redondeando a 4 decimales y con un cero como entero, por ejemplo: 0.3492, 0.3490, 0.3500 ó 0.3000
+
+Sugerencia. Observe que los números dentro de la tabla sin intersecciones
+. Para el inciso a, le piden hallar la probabilidad  condicional    P(sea mujer | fuma)   etc. Apóyese de las notas de clase sobre probabilidad clásica.
+
+```{r}
+fuman_hombres <- 200
+fuman_mujeres <- 80
+no_fuman_hombres <- 135
+no_fuman_mujeres <- 238
+
+total_fuman <- fuman_hombres + fuman_mujeres
+total_mujeres <- fuman_mujeres + no_fuman_mujeres
+total_personas <- total_fuman + no_fuman_hombres + no_fuman_mujeres
+
+prob_mujer_dado_fuma <- fuman_mujeres / total_fuman
+round(prob_mujer_dado_fuma, 4)
+
+prob_mujer_y_fuma <- fuman_mujeres / total_personas
+round(prob_mujer_y_fuma, 4)
+
+prob_no_fuma_dado_mujer <- no_fuman_mujeres / total_mujeres
+round(prob_no_fuma_dado_mujer, 4)
+
+prob_mujer_o_no_fuma <- (total_mujeres + no_fuman_hombres) / total_personas
+round(prob_mujer_o_no_fuma, 4)
+
+```
+## Problema 3
+En una caja se encuentran 56 billetes de 100, 36 de 200, 35 de 500 y 56 de 1000. Se definen los eventos: C, que el billete extraído sea de 100; D, que el billete extraído sea de 200; Q, el billete es de 500 y M, el billete es de 1000. Se extraen dos billetes, uno detrás del otro, al azar. El subíndice indica el orden en que se sacó el billete.
+
+Si la extracción se hace con reemplazo, calcula:
+
+TIP: No hagas el espacio muestral de todos los billetes, si necesitas un diagrama, restríngelo a los eventos que intervienten en la pregunta que te hacen. 
+
+```{r}
+billetes_500 <- 35
+billetes_1000 <- 56
+total_billetes <- 56 + 36 + 35 + 56
+
+P_Q1 <- billetes_500 / total_billetes
+P_M2 <- billetes_1000 / total_billetes
+
+
+P_Q1_M2 <- P_Q1 * P_M2
+
+round(P_Q1_M2, 4)
+
+```
+## Problema 4
+En una caja se encuentran 21 billetes de $100, 13 de $200, 9 de $500 y 19 de $1000. Se definen los eventos: C, que el billete extraído sea de $100; D, que el billete extraído sea de $200; Q, el billete es de $500 y M, el billete es de $1000. Se extraen dos billetes, uno detrás del otro, al azar. El subíndice indica el orden en que se sacó el billete.
+
+Si la extracción se hace sin reemplazo, calcula: 
+
+TIP: No hagas el espacio muestral de todos los billetes, si necesitas un diagrama, restríngelo a los eventos que intervienten en la pregunta que te hacen.
+```{r}
+billetes_500 <- 9
+billetes_1000 <- 19
+total_billetes <- 21 + 13 + 9 + 19
+
+P_M1 <- billetes_1000 / total_billetes
+P_Q2_dado_M1 <- billetes_500 / (total_billetes - 1)
+
+P_Q2_y_M1 <- P_M1 * P_Q2_dado_M1
+
+round(P_Q2_y_M1, 4)
+
+```
+## Problema 5
+En una etapa de la producción de un artículo se aplica soldadura con tres diferentes robots. La probabilidad de que la soldadura sea defectuosa es diferente para cada uno, así que la probabilidad de que el artículo esté mal soldado depende del robot que lo fabricó, como indica la siguiente tabla:
+```{r}
+robot <- c("A", "B", "C")
+prob_defectuosa <- c(0.003, 0.05, 0.002)
+proporcion_procesada <- c(0.40, 0.18, 0.42)
+
+costo_reciclaje <- 2.9
+
+prob_total_defectuoso <- sum(prob_defectuosa * proporcion_procesada)
+
+num_esperado_defectuosos <- prob_total_defectuoso * 100000
+
+costo_esperado <- num_esperado_defectuosos * costo_reciclaje
+
+prob_B_dado_defectuoso <- (prob_defectuosa[2] * proporcion_procesada[2]) / prob_total_defectuoso
+
+round(costo_esperado, 2)
+round(prob_B_dado_defectuoso, 4)
+
+```
+
+## Problema 6
+Obtén el valor de la variable aleatoria z en el percentil 1 de la distribución normal estándar. Escribe el resultado con dos decimales.
+
+Sugerencia. Observe que en este caso se trata de la Normal unitaria de media 0 y desviación estándar 1. Le dan área a la izquierda (1%) y le piden hallar z. Se usa qnorm(área  a la izquierda)
+
+```{r}
+percentil <- 0.01
+
+valor_z <- qnorm(percentil)
+
+round(valor_z, 2)
+
+```
+## Problema 7
+```{r}
+media <- 11
+desv_est <- 1.5
+
+prob_a <- pnorm(11, mean = media, sd = desv_est) 
+round(prob_a, 3)
+
+prob_b <- pnorm(14, mean = media, sd = desv_est) - pnorm(9, mean = media, sd = desv_est)
+round(prob_b, 3)
+
+prob_c <- 1 - pnorm(10, mean = media, sd = desv_est)  
+round(prob_c, 3)
+
+```
+
+## Problema 8
+Una máquina distribuidora de café puede regularse para proporcionar una media de μ litros. La cantidad servida por vaso tiene una distribución normal con una desviación constante de 0.015 litros. Calcula el valor de μ al que debe ajustarse la máquina para que un vaso de 0.32 litros no se desborde el 97% de las veces. 
+
+```{r}
+desv_est <- 0.015
+prob_no_desborde <- 0.97
+capacidad_vaso <- 0.32
+
+z_score <- qnorm(prob_no_desborde)
+media <- capacidad_vaso - z_score * desv_est
+
+round(media, 4)
+
+```
+
+## Problema 9
+```{r}
+media <- 107
+varianza <- 225
+desv_estandar <- sqrt(varianza)
+ci_dotado <- 120
+
+prob_no_dotado <- pnorm(ci_dotado, mean = media, sd = desv_estandar)
+prob_dotado <- 1 - prob_no_dotado
+
+round(prob_dotado, 5)
+
+```
+## Problema 10
+```{r}
+n <- 12
+p <- 0.75
+
+prob_exito <- 1 - pbinom(6, size = n, prob = p)
+
+round(prob_exito, 4)
+
+```
+
+## Problema 11
+```{r}
+n <- 1200
+p <- 0.75
+exito <- 880
+
+prob_no_promocion <- pbinom(exito - 1, size = n, prob = p)
+
+round(prob_no_promocion, 4)
+
+```
+
+## Problema 13
+```{r}
+x <- c(11, 20, 23, 24, 27, 31, 36, 39, 39, 44, 47, 48, 48, 49, 50, 55, 59, 60, 60, 61, 65, 68, 74, 77)
+
+media <- mean(x)
+mediana <- median(x)
+desv_estandar <- sd(x)
+mad <- mad(x)
+
+media
+mediana
+desv_estandar
+mad
+```
+

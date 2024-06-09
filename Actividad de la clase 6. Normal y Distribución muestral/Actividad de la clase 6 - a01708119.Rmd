@@ -1,0 +1,47 @@
+---
+title: "Actividad en clase 6 - A01708119"
+author: "Erick Alfredo Garcia Huerta - A01708119"
+date: "`r Sys.Date()`"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## El problema de las botellas
+
+Se trata de una variable contíncua sobre el llenado de una botella
+```{r}
+media <- 320 # ml, de población
+
+varianza <- 0.004 #ml^2
+
+desv <- sqrt(varianza) # Desviación estandar de población
+
+#P(X > 320.3)
+
+1-pnorm(320.2, media, desv)
+
+```
+
+significa que 7 de cada 1000 botellas se espera (en promedio) corran el riesgo de romperse
+
+## b)
+```{r}
+media_xbarra <- 320 # es igual a lamedia de poblacon de individuos
+
+n <- 20
+
+error_estandar <- desv/sqrt(n)
+
+x1 <- qnorm(0.025, media_xbarra, error_estandar)
+x2 <- qnorm(1 - 0.025, media_xbarra, error_estandar)
+
+cat("[", x1, ", ", x2, "]")
+```
+
+Fuera de este intervalor, el ingeniero rechazará el pedido
+
+## c) De hecho el ingeniero en una muestra de tamaño 20 obtuvo una media de 319.7
+
