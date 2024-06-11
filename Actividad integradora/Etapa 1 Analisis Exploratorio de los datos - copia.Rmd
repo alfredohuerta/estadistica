@@ -51,8 +51,12 @@ R2 = M3[M3$region == "R2", ][-1]
 
 # Análisis de medidas resumen de R1, R2
 ```{r}
+cat("Región 1 \n")
 summary(R1)
+cat("Región 2 \n")
+summary(R2)
 ```
+## Gráficas
 ```{r}
 par(cex = 0.7) # disminuye la letra de las etiquetas
 par(las = 3) # voltear las etiquetas
@@ -66,7 +70,25 @@ hist(R1$electrd_de_f_bajas_carb, col = "pink")
 hist(R1$PIB_per_cap, col = "purple")
 hist(R1$superficie, col = "black")
 ```
+```{r}
+par(cex = 0.7) # disminuye la letra de las etiquetas
+par(las = 3) # voltear las etiquetas
+boxplot(R2[1:4], main = "R2", col = rainbow(8))
+plot(R2, col = "blue")
+par(mfrow = c(2, 3)) # matriz graficos 3 filas, 2 columnas
+hist(R2$acceso_combust_limpios, col = "red")
+hist(R2$electrd_fosiles, col = "green")
+hist(R2$electrd_de_energ_renov, col = "yellow")
+hist(R2$electrd_de_f_bajas_carb, col = "pink")
+hist(R2$PIB_per_cap, col = "purple")
+hist(R2$superficie, col = "black")
+```
+
 ## Matriz de correlaciones
 ```{r}
+cat("Región 1\n")
 round(cor(R1), 2)
+cat("Región 2\n")
+round(cor(R2), 2)
 ```
+# Reporte
